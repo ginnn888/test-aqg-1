@@ -1,63 +1,41 @@
-/**
- * order-utils.js — sample module for testing the Quality Gate Console.
- * Upload this file at http://localhost:3000 and run the gate.
- *
- * It deliberately contains a mix of clean code and problems so the report
- * shows findings across every category (security / logic / coverage).
- */
+// mathUtils.js
+// ฟังก์ชันง่ายๆ ไว้ให้ฝึกเขียน test ด้วย Jest
 
-// --- config -----------------------------------------------------------------
+function add(a, b) {
+  return a + b;
+}
 
-// FINDING: hardcoded credential literal in source
-const PAYMENT_API_KEY = "sk_live_9f2Ab7Qz1Kp4Rt8Nx3Wm6Yc0Ld5Hj";
+function subtract(a, b) {
+  return a - b;
+}
 
-// FINDING: plain-HTTP endpoint (unencrypted)
-const PRICING_ENDPOINT = "http://pricing.internal.example.com/v1/rates";
-
-// --- clean, validated helper ---------------------------------------------
-
-/**
- * Adds a line item total. Fully validated + normalises negative zero.
- */
-function lineTotal(unitPrice, quantity) {
-  if (typeof unitPrice !== "number" || Number.isNaN(unitPrice)) {
-    throw new TypeError("unitPrice must be a number");
+function divide(a, b) {
+  if (b === 0) {
+    throw new Error("Cannot divide by zero");
   }
-  if (!Number.isInteger(quantity) || quantity < 0) {
-    throw new RangeError("quantity must be a non-negative integer");
-  }
-  const result = unitPrice * quantity;
-  return Object.is(result, -0) ? 0 : result;
+  return a / b;
 }
 
-// --- problem code ------------------------------------------------------
-
-// FINDING: exported API with no input validation
-// FINDING: arithmetic result not normalised for -0
-function applyDiscount(amount, percent) {
-  return amount - (amount * percent) / 100;
+function isEven(num) {
+  return num % 2 === 0;
 }
 
-// FINDING: loose equality (== instead of ===)
-function isFreeShipping(orderTotal) {
-  return orderTotal == 0 || orderTotal > 100;
+function capitalize(str) {
+  if (typeof str !== "string" || str.length === 0) return "";
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// FINDING: Math.random() used for a transaction identifier
-function newTransactionId() {
-  return "txn_" + Math.random().toString(36).slice(2, 12);
+// ฟังก์ชันจำลอง async (เช่น เรียก API หรือ database)
+function fetchUserAsync(id) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (id <= 0) {
+        reject(new Error("Invalid user id"));
+      } else {
+        resolve({ id, name: `User${id}` });
+      }
+    }, 100);
+  });
 }
 
-// FINDING: eval() on caller-supplied input
-function evaluatePricingRule(ruleExpression, context) {
-  return eval(ruleExpression);
-}
-
-module.exports = {
-  lineTotal,
-  applyDiscount,
-  isFreeShipping,
-  newTransactionId,
-  evaluatePricingRule,
-  PRICING_ENDPOINT,
-};
+module.exports = { add, subtract, divide, isEven, capitalize, fetchUserAsync };
