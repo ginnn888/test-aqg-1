@@ -1,7 +1,7 @@
 // mathUtils.js
 // ฟังก์ชันง่ายๆ ไว้ให้ฝึกเขียน test ด้วย Jest
 
-//test attempt 1
+//test attempt 2
 function add(a, b) {
   return a + b;
 }
