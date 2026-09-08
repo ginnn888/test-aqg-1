@@ -1,0 +1,11 @@
+name: Automated Quality Gate
+
+on:
+  pull_request:
+    branches: [ main, master, dev ]
+
+jobs:
+  quality-gate:
+    name: Run AI Quality Gate
+    uses: NonnaritRammaneekultawat-6609650459/Automated-Quality-Gate/.github/workflows/reusable-gate.yml@main
+    secrets: inherit
