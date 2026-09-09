@@ -1,9 +1,19 @@
 // mathUtils.js
 // ฟังก์ชันง่ายๆ ไว้ให้ฝึกเขียน test ด้วย Jest
 
-//test attempt 5
+//test attempt 6 — full-flow demo run
 function add(a, b) {
   return a + b;
+}
+
+function multiply(a, b) {
+  return a * b;
+}
+
+function clamp(value, min, max) {
+  if (value < min) return min;
+  if (value > max) return max;
+  return value;
 }
 
 function subtract(a, b) {
@@ -39,4 +49,13 @@ function fetchUserAsync(id) {
   });
 }
 
-module.exports = { add, subtract, divide, isEven, capitalize, fetchUserAsync };
+module.exports = {
+  add,
+  multiply,
+  clamp,
+  subtract,
+  divide,
+  isEven,
+  capitalize,
+  fetchUserAsync,
+};

@@ -1,0 +1,12 @@
+{
+  "name": "test-aqg-1",
+  "version": "1.0.0",
+  "description": "Sample repo for exercising the Automated Quality Gate flow",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^30.2.0"
+  }
+}
