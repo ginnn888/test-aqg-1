@@ -1,4 +1,6 @@
 {
   "global": 70,
-  "files": {}
+  "files": {
+    "src/sample-to-check.js": 70
+  }
 }
