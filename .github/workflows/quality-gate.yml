@@ -1,12 +1,12 @@
 # Managed by the Quality Gate console — reconfigure or remove it from the console.
 # The analysis is the Automated Quality Gate, pulled straight from
-# github.com/NonnaritRammaneekultawat-6609650459/test-github-marketplace on every run (ref: v1.0.0).
+# github.com/NonnaritRammaneekultawat-6609650459/test-github-marketplace on every run (ref: 1.1).
 name: Automated Quality Gate
 
 on:
-  pull_request:
-    branches: ["main"]
   push:
+    branches: ["main"]
+  pull_request:
     branches: ["main"]
 
 permissions:
@@ -64,7 +64,7 @@ jobs:
       # report as a PR comment and exits non-zero when the gate fails.
       - name: Automated Quality Gate
         if: always()
-        uses: NonnaritRammaneekultawat-6609650459/test-github-marketplace@v1.0.0
+        uses: NonnaritRammaneekultawat-6609650459/test-github-marketplace@1.1
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
           sonar_token: ${{ secrets.SONAR_TOKEN }}
