@@ -4,9 +4,9 @@
 name: Automated Quality Gate
 
 on:
-  pull_request:
-    branches: ["main", "quality-gate/add-tests-1788852927937", "test/pr-gin", "demo/flow-run", "aqg-tests/pr-2"]
   push:
+    branches: ["main", "quality-gate/add-tests-1788852927937", "test/pr-gin", "demo/flow-run", "aqg-tests/pr-2"]
+  pull_request:
     branches: ["main", "quality-gate/add-tests-1788852927937", "test/pr-gin", "demo/flow-run", "aqg-tests/pr-2"]
 
 permissions:
@@ -69,3 +69,18 @@ jobs:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
           sonar_token: ${{ secrets.SONAR_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      # The gate writes the AI-generated tests to Test/ and the coverage report
+      # to coverage/ on the runner, then both are deleted with it — the PR
+      # comment only ever shows a summary table, never the actual test code.
+      # Upload them as a downloadable build artifact so they aren't lost.
+      - name: Upload generated tests + coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-gate-output-${{ github.run_id }}
+          path: |
+            Test/
+            coverage/
+          if-no-files-found: ignore
+          retention-days: 14
